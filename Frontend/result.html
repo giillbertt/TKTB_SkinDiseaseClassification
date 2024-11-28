@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1 class="logo">Skin Classifier</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="result-container">
+        <h1>Result: <span class="highlight">Acne and Rosacea</span></h1>
+        
+        <div class="result-card">
+            <div class="result-header">
+                <h2>Confidence Level: <span class="confidence"></span></h2>
+            </div>
+            <div class="result-body">
+                <div class="result-image">
+                    <img id="submitted-image" src="" alt="Submitted Skin Image">
+                </div>                
+                <div class="result-description">
+                    <p id="description"></p>
+                </div>
+            </div>
+            <div class="result-actions">
+                <button class="action-button secondary" onclick="window.location.href='analyze.html'">Analyze new image</button>
+                <button class="action-button primary" onclick="sendResults()">Send results</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Skinalyze. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function sendResults() {
+            alert("Results sent successfully!");
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Retrieve result and image from localStorage
+            const resultData = localStorage.getItem('finalResult');
+            const uploadedImage = localStorage.getItem('uploadedImage');
+
+            console.log('Retrieved resultData:', resultData);
+
+            // Redirect if data is missing
+            if (!resultData || !uploadedImage) {
+                alert('No result found. Redirecting to analyze page.');
+                window.location.href = 'analyze.html';
+                return;
+            }
+
+            // Parse the result JSON
+            const result = JSON.parse(resultData);
+
+            const predictions = result.prediction[0]; // Extract the inner array
+            console.log('Extracted predictions:', predictions);
+
+            // Define class labels and descriptions
+            const classes = ["Acne and Rosacea", "Atopic Dermatitis", "Psoriasis pictures Lichen Planus and related diseases", "Urticaria Hives", "Eczema"];
+            const descriptions = {
+                "Acne and Rosacea": "Acne and Rosacea are inflammatory skin conditions that can cause redness, bumps, and pustules. While acne often involves clogged pores and oily skin, Rosacea typically results in visible blood vessels and persistent facial redness. Common treatments include retinoids, antibiotics, and gentle skincare routines.",
+                "Atopic Dermatitis": "Atopic Dermatitis, a type of eczema, is a chronic skin condition characterized by itchy, red, and inflamed patches. It often starts in childhood and can flare up due to allergens, irritants, or stress. Moisturizers, topical steroids, and antihistamines are commonly used to manage symptoms.",
+                "Psoriasis pictures Lichen Planus and related diseases": "Psoriasis is a chronic autoimmune condition that causes thickened, scaly, and itchy skin patches. Lichen Planus is an inflammatory condition that produces flat-topped, purplish bumps on the skin or mucous membranes. These conditions may coexist and require specialized treatments like phototherapy, biologics, or corticosteroids.",
+                "Urticaria Hives": "Urticaria, or Hives, appears as raised, itchy welts on the skin. These can be triggered by allergens, infections, or stress. Hives usually resolve on their own but may require antihistamines or corticosteroids for severe cases. Avoiding triggers is key to prevention.",
+                "Eczema": "Eczema encompasses a group of conditions that cause the skin to become inflamed, itchy, and cracked. It can be triggered by environmental factors, allergens, or irritants. Regular use of emollients, topical corticosteroids, and avoiding irritants can help manage this condition."
+            };
+
+            // Find the predicted class and confidence level
+            const maxIndex = predictions.indexOf(Math.max(...predictions)); // Correctly find the index
+            const predictedClass = classes[maxIndex];
+            const confidence = (predictions[maxIndex] * 100).toFixed(2);
+
+            console.log('Predicted class:', predictedClass);
+            console.log('Confidence:', confidence);
+
+            // Update the result on the page
+            document.querySelector('.highlight').textContent = predictedClass;
+            document.querySelector('.confidence').textContent = `${confidence}%`;
+            document.querySelector('#description').textContent = descriptions[predictedClass];
+
+            // Display the uploaded image
+            const imageElement = document.querySelector('#submitted-image');
+            if (imageElement) {
+                imageElement.src = uploadedImage;
+            }
+        });
+    </script>
+</body>
+</html>

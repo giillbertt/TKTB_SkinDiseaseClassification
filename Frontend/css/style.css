@@ -1,0 +1,381 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Memastikan footer tetap di bawah */
+}
+
+/* Header */
+header {
+    background-color: #007bff;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+nav {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 1.5rem;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ddd;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    color: #555;
+    margin-top: auto;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-text {
+    max-width: 50%;
+}
+
+.hero-text h2 {
+    color: #007bff;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-text h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.classification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    columns: 2;
+    column-gap: 1rem;
+}
+
+.classification-list li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.cta {
+    margin-top: 2rem;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 1rem;
+    text-align: left;
+}
+
+.cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Upload Section */
+.upload-container {
+    padding: 2rem;
+    text-align: center;
+}
+
+.upload-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.upload-form {
+    display: inline-block;
+}
+
+.upload-form input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 1rem;
+}
+
+/* Tombol "Classify Lesion" awalnya non-aktif */
+.upload-button {
+    background-color: #808080; /* Warna abu-abu */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: not-allowed; /* Tanda cursor non-aktif */
+    transition: background-color 0.3s ease;
+}
+
+/* Tombol "Classify Lesion" saat diaktifkan */
+.upload-button.enabled {
+    background-color: #007bff; /* Warna biru */
+    cursor: pointer;
+}
+
+.upload-button.enabled:hover {
+    background-color: #0056b3; /* Biru lebih gelap saat hover */
+}
+
+/* Animasi saat tombol diklik */
+.upload-button:active {
+    animation: clickAnimation 0.2s ease-out;
+}
+
+/* Pastikan animasi klik hanya berlaku saat tombol aktif */
+.upload-button:disabled:active {
+    animation: none;
+}
+
+.upload-notes {
+    text-align: left;
+    margin-top: 2rem;
+}
+
+.sample-image img {
+    max-width: 100%;
+    margin-top: 3rem;
+}
+
+/* Analysis Page */
+.content-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    text-align: center;
+    max-width: 800px;
+    margin: auto;
+    padding-top: 5rem; /* Jarak atas */
+    padding-bottom: 5rem; /* Jarak bawah */
+}
+
+/* Animasi Loading */
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #007bff; /* Biru untuk animasi */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+/* Animasi rotasi untuk loader */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Pesan hasil */
+.result-message {
+    font-size: 1.2rem;
+    color: #808080; /* Warna abu-abu */
+}
+
+/* Animasi fade-in untuk konten */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Animasi ketika tombol diklik */
+@keyframes clickAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+/* Halaman Hasil */
+.result-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.result-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.highlight {
+    color: #007bff; /* Warna biru untuk diagnosis */
+    font-weight: 700;
+}
+
+.result-card {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #007bff;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result-header {
+    margin-bottom: 1rem;
+}
+
+.result-header h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.confidence {
+    color: #007bff; /* Warna biru untuk confidence level */
+    font-weight: 700;
+}
+
+.result-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.result-image img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-description {
+    flex: 1;
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.action-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-button.primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.action-button.primary:hover {
+    background-color: #0056b3;
+}
+
+.action-button.secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.action-button.secondary:hover {
+    background-color: #aaa;
+}
+.result-description {
+    text-align: left; /* Menjadikan teks rata kiri */
+}

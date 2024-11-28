@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1 class="logo">Skin Classifier</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="upload-container">
+        <div class="content-center animate-fade-in">
+            <section class="upload-section">
+                <h1>Upload the image of your skin</h1>
+                <form class="upload-form">
+                    <input type="file" id="file-input" name="file-input">
+                    <button type="submit" class="upload-button" disabled>Classify Skin</button>
+                </form>
+            </section>
+
+            <div class="upload-notes">
+                <h3>Notes on file uploading:</h3>
+                <ul>
+                    <li>Preferably an image with max file size of 1 mb.</li>
+                    <li>Make sure your image is well-lighted and clear.</li>
+                </ul>
+            </div>
+
+            <div class="sample-image">
+                <img src="images/sample.png" alt="Sample Skin Lesion">
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Skinalyze Classifier. All rights reserved.</p>
+    </footer>
+
+    <!-- Tambahkan JavaScript berikut -->
+    <script>
+        const fileInput = document.querySelector('#file-input');
+        const classifyButton = document.querySelector('.upload-button');
+
+        fileInput.addEventListener('change', function() {
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    localStorage.setItem('uploadedImage', e.target.result); // Save image as Base64
+                };
+                reader.readAsDataURL(file);
+                // Aktifkan tombol dan ubah tampilannya
+                classifyButton.disabled = false;
+                classifyButton.classList.add('enabled');
+            } else {
+                // Nonaktifkan tombol dan kembalikan tampilannya
+                classifyButton.disabled = true;
+                classifyButton.classList.remove('enabled');
+            }
+        });
+
+        document.querySelector('.upload-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const file = fileInput.files[0];
+
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch('http://localhost:8000/predict', {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Error: ${response.statusText}');
+                    }
+
+                    const result = await response.json();
+
+                    localStorage.setItem('analysisResult', JSON.stringify(result));
+                    window.location.href = 'analysis.html';
+                } catch (error) {
+                    console.error('Error during prediction:', error);
+                    alert('Failed to analyze the image. Please try again.');
+                }
+            } else {
+                alert('Please select a file to upload.');
+            }
+        });
+    </script>
+</body>
+</html>

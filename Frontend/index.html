@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skinalyze</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1 class="logo">Skinalyze</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Welcome to</h2>
+                <h1>Skinalyze</h1>
+                <p>Able to classify:</p>
+                <ul class="classification-list">
+                    <li>Acne/Rosacea</li>
+                    <li>Atopic Dermatitis</li>
+                    <li>Eczema</li>
+                    <li>Psoriasis/Lichen Planus</li>
+                    <li>Urticaria Hives</li>
+                </ul>
+                <div class="cta">
+                    <div class="cta-text">Assisting in skin disease diagnosis all around the world.</div>
+                    <button class="cta-button" onclick="location.href='analyze.html'">Analyze Now</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/image.png" alt="Skinalyze">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Skinalyze. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Animasi klik Home
+        document.querySelector('a[href="index.html"]').addEventListener('click', function(event) {
+            event.preventDefault();
+            const homeLink = event.target;
+            
+            homeLink.style.transition = 'transform 0.2s';
+            homeLink.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                homeLink.style.transform = 'scale(1)';
+                window.location.href = homeLink.href;  // Pindah halaman setelah animasi selesai
+            }, 200);
+        });
+    </script>
+</body>
+</html>
